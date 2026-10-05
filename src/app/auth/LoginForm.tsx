@@ -11,20 +11,10 @@ export default function LoginForm() {
     event.preventDefault();
 
     setError("");
-    
-    if (!email) {
-      alert("Please enter your email.");
-      return;     
-    }
-
-    if (!password) {
-      alert("Please enter your password.");
-      return;           
-    }
 
     const response = await fetch("/api/auth/login", {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
       },
 
@@ -32,9 +22,10 @@ export default function LoginForm() {
     });
 
     const data = await response.json();
-
-    console.log(data);
-  }
+    console.log("status:", response.status);
+    console.log("ok:", response.ok);
+    console.log("data:", data);
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
