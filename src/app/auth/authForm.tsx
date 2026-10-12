@@ -57,21 +57,3 @@ export default function AuthForm() {
     </div>
   )
 }
-  
-  // const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-
-  //   setError("");
-
-  //   const response = await fetch("/api/auth/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-
-  //     body: JSON.stringify({ email, password }),
-  //   });
-
-  //   const data = await response.json();
-  // };
-
