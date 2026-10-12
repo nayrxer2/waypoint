@@ -9,7 +9,12 @@ export async function POST(request: Request) {
         body === null ||
         typeof body.email !== "string" ||
         typeof body.password !== "string"
-      ) 
+      ) {
+        return NextResponse.json(
+          { message: "Invalid body" }, 
+          { status: 400 }
+        );
+      }
       return NextResponse.json(
         { message: "Valid body" }, 
         { status: 200 }
