@@ -5,8 +5,7 @@ export default function Home() {
    <main>
     <h1>Welcome to My App</h1>
     <div>
-      <Link href="/login">Login</Link>
-      <Link href="/signup">Sign Up</Link>
+      <Link href="/welcome">Login</Link>
     </div>
    </main>
   );

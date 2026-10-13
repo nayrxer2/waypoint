@@ -1,7 +1,6 @@
 "use client";
 
-import LoginForm from "../../components/forms/login";
-import SignupForm from "../../components/forms/signup";
+import CredentialsForm from "../../components/forms/auth-form";
 
 import { useState } from "react";
 
@@ -23,8 +22,8 @@ export default function AuthForm() {
             className={`px-4 py-2
               ${mode === "login" ? 
                 "!bg-blue-500 text-white rounded-lg" : 
-                "bg-gray-200 text-gray-700"
-              }`}
+                "bg-gray-200 text-gray-700"}`
+            }
             onClick={() => setMode("login")}
           >
             Login
@@ -35,24 +34,14 @@ export default function AuthForm() {
             className={`px-4 py-2
               ${mode === "signup" ? 
                 "!bg-blue-500 text-white rounded-lg" : 
-                "bg-gray-200 text-gray-700"
-              }`}
+                "bg-gray-200 text-gray-700"}`
+            }
             onClick={() => setMode("signup")}
           >
-            Sign Ups
+            Sign Up
           </button>
         </div>
-        <div>
-          {mode === "login" ? 
-            (<>
-              <LoginForm />
-            </>)
-            :
-            (<>
-              <SignupForm />
-            </>)
-          }
-        </div>
+        <CredentialsForm mode={mode} />
       </div>
     </div>
   )
