@@ -1,10 +1,10 @@
 "use client";
 
-import CredentialsForm from "../../components/forms/auth-form";
+import CredentialsForm, {
+  type AuthMode,
+} from "../../components/forms/auth-form";
 
 import { useState } from "react";
-
-type AuthMode = "login" | "signup";
 
 export default function AuthForm() {
   const [mode, setMode] = useState<AuthMode>("login");
