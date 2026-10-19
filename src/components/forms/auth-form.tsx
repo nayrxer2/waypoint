@@ -18,7 +18,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 const inputClassName =
-  "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-600/10 disabled:bg-stone-100";
+  "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-600/10 disabled:bg-stone-100 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 dark:placeholder:text-stone-500 dark:disabled:bg-stone-800";
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const isSignup = mode === "signup";
@@ -93,7 +93,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
     <form className="w-full space-y-5" onSubmit={handleSubmit}>
       <div className="space-y-2">
         <label
-          className="block text-sm font-medium text-stone-700"
+          className="block text-sm font-medium text-stone-700 dark:text-stone-300"
           htmlFor="auth-email"
         >
           Email address
@@ -114,7 +114,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
       <div className="space-y-2">
         <label
-          className="block text-sm font-medium text-stone-700"
+          className="block text-sm font-medium text-stone-700 dark:text-stone-300"
           htmlFor="auth-password"
         >
           Password
@@ -132,7 +132,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             disabled={isPending}
           />
           <button
-            className="absolute inset-y-0 right-3 my-auto h-fit rounded px-1 py-2 text-sm font-medium text-stone-500 hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 disabled:opacity-50"
+            className="absolute inset-y-0 right-3 my-auto h-fit rounded px-1 py-2 text-sm font-medium text-stone-500 hover:text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 disabled:opacity-50 dark:text-stone-400 dark:hover:text-stone-100"
             type="button"
             aria-label={showPassword ? "Hide password" : "Show password"}
             aria-pressed={showPassword}
@@ -147,7 +147,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       {isSignup && (
         <div className="space-y-2">
           <label
-            className="block text-sm font-medium text-stone-700"
+            className="block text-sm font-medium text-stone-700 dark:text-stone-300"
             htmlFor="auth-confirm-password"
           >
             Confirm password
@@ -170,8 +170,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
         <p
           className={`rounded-lg px-4 py-3 text-sm ${
             feedback.type === "error"
-              ? "bg-red-50 text-red-800"
-              : "bg-emerald-50 text-emerald-800"
+              ? "bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-200"
+              : "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
           }`}
           role={feedback.type === "error" ? "alert" : "status"}
         >
@@ -180,7 +180,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       )}
 
       <button
-        className="w-full rounded-lg bg-stone-900 px-4 py-3 font-semibold text-white transition hover:bg-stone-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-lg bg-stone-900 px-4 py-3 font-semibold text-white transition hover:bg-stone-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-amber-500 dark:text-stone-950 dark:hover:bg-amber-400 dark:focus-visible:outline-amber-400"
         type="submit"
         disabled={isPending}
       >
