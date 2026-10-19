@@ -1,28 +1,47 @@
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-    try {
-      const body = await request.json();
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
 
-      if (
-        typeof body !== "object" ||
-        body === null ||
-        typeof body.email !== "string" ||
-        typeof body.password !== "string"
-      ) {
-        return NextResponse.json(
-          { message: "Invalid body" }, 
-          { status: 400 }
-        );
-      }
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+export async function POST(request: Request) {
+  let body: unknown;
+
+  try {
+    body = await request.json();
+  } catch (error) {
+    if (error instanceof SyntaxError) {
       return NextResponse.json(
-        { message: "Valid body" }, 
-        { status: 200 }
-      );
-    } catch {
-      return NextResponse.json(
-        { message: "invalid email" }, 
-        { status: 400 }
+        { message: "Request body must be valid JSON." },
+        { status: 400 },
       );
     }
+    throw error;
+  }
+
+  if (
+    !isRecord(body) ||
+    typeof body.email !== "string" ||
+    !isValidEmail(body.email) ||
+    typeof body.password !== "string" ||
+    body.password.length === 0
+  ) {
+    return NextResponse.json(
+      { message: "Enter a valid email address and password." },
+      { status: 400 },
+    );
+  }
+
+  return NextResponse.json(
+    {
+      message:
+        "Authentication is not configured yet. Your details were not saved.",
+      success: false,
+    },
+    { status: 501 },
+  );
 }
