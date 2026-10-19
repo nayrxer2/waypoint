@@ -12,7 +12,7 @@ export default function AuthForm() {
 
   return (
     <main
-      className={`relative flex min-h-screen items-center justify-center p-4 transition-colors duration-300 sm:p-6 ${
+      className={`relative flex min-h-screen w-full items-center justify-center p-4 transition-colors duration-300 sm:p-6 ${
         isDarkMode ? "dark bg-stone-950" : "bg-[#e6e5df]"
       }`}
     >
