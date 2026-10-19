@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CredentialsForm, {
   type AuthMode,
-} from "../../components/forms/auth-form";
+} from "./credentials-form";
 
 export default function AuthForm() {
   const [mode, setMode] = useState<AuthMode>("login");
