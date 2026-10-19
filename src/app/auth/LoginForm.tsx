@@ -22,9 +22,11 @@ export default function LoginForm() {
     });
 
     const data = await response.json();
-    console.log("status:", response.status);
-    console.log("ok:", response.ok);
-    console.log("data:", data);
+    
+    if(!response.ok) {
+      setError(data.message);
+      return;
+    }
   };
 
   return (

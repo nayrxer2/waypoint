@@ -1,20 +1,47 @@
 import { NextResponse } from "next/server";
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
 export async function POST(request: Request) {
-  const body = await request.json();
+  let body: unknown;
+
+  try {
+    body = await request.json();
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { message: "Request body must be valid JSON." },
+        { status: 400 },
+      );
+    }
+    throw error;
+  }
 
   if (
-    typeof body !== "object" ||
-    body === null ||
-    Array.isArray(body.password) ||
+    !isRecord(body) ||
     typeof body.email !== "string" ||
-    typeof body.password !== "string"
+    !isValidEmail(body.email) ||
+    typeof body.password !== "string" ||
+    body.password.length === 0
   ) {
     return NextResponse.json(
-      { message: "Invalid request body" },
+      { message: "Enter a valid email address and password." },
       { status: 400 },
     );
   }
 
-  return NextResponse.json({ message: "Valid body" }, { status: 200 });
+  return NextResponse.json(
+    {
+      message:
+        "Authentication is not configured yet. Your details were not saved.",
+      success: false,
+    },
+    { status: 501 },
+  );
 }
