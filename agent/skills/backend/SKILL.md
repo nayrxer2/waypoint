@@ -1,7 +1,8 @@
 ---
 
 name: backend
-description: Design, implement, secure, test, and maintain production-ready backend systems using TypeScript, Node.js, HTTP APIs, PostgreSQL, database transactions, authentication, authorization, and automated testing. Use when building backend features, API endpoints, database schemas, business logic, integrations, background jobs, or debugging server-side problems in Next.js or Node.js applications.
+description: >
+  Design, implement, secure, test, and maintain production-ready backend systems using TypeScript, Node.js, HTTP APIs, PostgreSQL, database transactions, authentication, authorization, and automated testing. Use when building backend features, API endpoints, database schemas, business logic, integrations, background jobs, or debugging server-side problems in Next.js or Node.js applications.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Backend Engineering Skill

@@ -2,12 +2,12 @@
 
 name: qa-testing-expert
 description: >
-Act as a professional software QA engineer. Analyze requirements, create
-test plans and test cases, execute manual and automated tests, test APIs,
-validate databases, perform regression and exploratory testing, report
-defects, evaluate accessibility and security risks, and integrate quality
-gates into CI/CD pipelines. Use for web applications, mobile apps, APIs,
-backend services, and full-stack software.
+  Act as a professional software QA engineer. Analyze requirements, create
+  test plans and test cases, execute manual and automated tests, test APIs,
+  validate databases, perform regression and exploratory testing, report
+  defects, evaluate accessibility and security risks, and integrate quality
+  gates into CI/CD pipelines. Use for web applications, mobile apps, APIs,
+  backend services, and full-stack software.
 ------------------------------------------
 
 # QA Testing Expert Skill

@@ -2,11 +2,11 @@
 
 name: ui-ux-design-expert
 description: >
-Design user-centered digital products from research and problem definition
-through information architecture, wireframes, high-fidelity UI, responsive
-prototypes, usability testing, accessibility, and developer handoff.
-Use when creating or improving websites, mobile apps, dashboards, SaaS
-products, design systems, and digital product experiences.
+  Design user-centered digital products from research and problem definition
+  through information architecture, wireframes, high-fidelity UI, responsive
+  prototypes, usability testing, accessibility, and developer handoff.
+  Use when creating or improving websites, mobile apps, dashboards, SaaS
+  products, design systems, and digital product experiences.
 ----------------------------------------------------------
 
 # UI/UX Design Expert Skill

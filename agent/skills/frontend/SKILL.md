@@ -1,7 +1,8 @@
 ---
 
 name: nextjs-typescript
-description: Build, refactor, debug, and review production-ready Next.js applications using TypeScript, the App Router, React Server Components, server-side data access, type-safe forms, responsive UI, accessibility, and performance best practices. Use when working on Next.js pages, layouts, components, route handlers, Server Actions, data fetching, authentication integration, or TypeScript errors.
+description: > 
+  Build, refactor, debug, and review production-ready Next.js applications using TypeScript, the App Router, React Server Components, server-side data access, type-safe forms, responsive UI, accessibility, and performance best practices. Use when working on Next.js pages, layouts, components, route handlers, Server Actions, data fetching, authentication integration, or TypeScript errors.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Next.js + TypeScript Engineering Skill
