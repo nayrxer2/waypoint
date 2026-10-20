@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 
 export type AuthMode = "login" | "signup";
 
-type AuthFormProps = {
+type CredentialsFormProps = {
   mode: AuthMode;
 };
 
@@ -14,19 +14,21 @@ type Feedback = {
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
+  // JSON is untrusted input, so narrow the parsed response before reading its fields.
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 const inputClassName =
   "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-600/10 disabled:bg-stone-100 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 dark:placeholder:text-stone-500 dark:disabled:bg-stone-800";
 
-export default function AuthForm({ mode }: AuthFormProps) {
+export default function CredentialsForm({ mode }: CredentialsFormProps) {
   const isSignup = mode === "signup";
   const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    // Validate locally first, then let the API validate again before it handles credentials.
     event.preventDefault();
     setFeedback(null);
 
