@@ -14,6 +14,7 @@ type Feedback = {
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
+  // JSON is untrusted input, so narrow the parsed response before reading its fields.
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
@@ -27,6 +28,7 @@ export default function CredentialsForm({ mode }: CredentialsFormProps) {
   const [feedback, setFeedback] = useState<Feedback | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    // Validate locally first, then let the API validate again before it handles credentials.
     event.preventDefault();
     setFeedback(null);
 
