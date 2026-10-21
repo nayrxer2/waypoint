@@ -31,3 +31,12 @@ Prefer composition and explicit props over boolean-heavy APIs. Keep state with t
 * Buttons across auth and dashboard currently have different semantics and visual treatments. Do not create a generic button API until there is a stable shared contract (for example, consistent variants, loading behavior, and disabled/focus states).
 * Revisit a shared field component if additional forms need the same label, help/error message, and input behavior. Keep password visibility and form submission in the auth feature.
 * When extracting a component, update consumers in the same change and run lint/type checks. Avoid changing behavior or adding styling options just to anticipate hypothetical future pages.
+
+## Style and route boundaries
+
+* Dashboard styles are reusable Tailwind component classes in `@layer components` in `src/app/globals.css`, scoped to the `.waypoint-dashboard` root class. Keep every dashboard selector below that namespace so the dashboard cannot change auth controls.
+* Keep `src/app/globals.css` limited to Tailwind setup, shared theme tokens, and intentional document-level defaults. Preserve the Tailwind `dark` custom variant because the welcome page uses `dark:*` utilities under its local `.dark` class.
+* Do not edit auth components or their Tailwind classes as part of dashboard work. If an auth-specific change is requested, keep it in the auth feature and validate `/welcome` in both light and dark modes.
+* Before changing shared global styles, identify all routes that inherit them and run a quick regression check on both `/` and `/welcome`. Treat global typography, element selectors, focus styles, and dark-mode configuration as cross-route changes.
+* For private route-specific styling, prefer a colocated CSS Module. For repeated, intentionally reusable Tailwind component styles, use `@layer components` in `globals.css`, namespaced beneath the owning feature root.
+* For repository-specific Tailwind 4, component-layer, and design-token rules, follow [the style isolation and design system guide](./style-isolation-and-design-system.md).

@@ -110,6 +110,8 @@ export default function Dashboard() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [notice, setNotice] = useState("");
+  // Keep theme state on this route so the dashboard never changes the welcome page theme.
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Filter both collections together so search always reflects the same workspace context.
   const filteredProjects = useMemo(
@@ -161,7 +163,7 @@ export default function Dashboard() {
   const today = new Intl.DateTimeFormat("en", { weekday: "long", month: "long", day: "numeric" }).format(new Date());
 
   return (
-    <main className="workspace-shell">
+    <main className={`waypoint-dashboard${isDarkMode ? " dark" : ""}`}>
       <aside className="sidebar">
         <Link className="brand" href="/" aria-label="Waypoint home">
           <span className="brand-symbol"><span /><span /><span /></span>
@@ -223,6 +225,16 @@ export default function Dashboard() {
         <header className="topbar">
           <div className="breadcrumb"><span>Workspace</span><Icon name="chevron" size={14} /><strong>{activeNav}</strong></div>
           <div className="topbar-actions">
+            <button
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              aria-pressed={isDarkMode}
+              className="theme-toggle"
+              onClick={() => setIsDarkMode((dark) => !dark)}
+              type="button"
+            >
+              <span aria-hidden="true">{isDarkMode ? "☀" : "☾"}</span>
+              <span>{isDarkMode ? "Light mode" : "Dark mode"}</span>
+            </button>
             {searchOpen && (
               <label className="search-field">
                 <Icon name="search" size={16} />
