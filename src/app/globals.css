@@ -359,6 +359,11 @@ body {
   color: #89918d;
 }
 
+.waypoint-dashboard .profile-sign-out {
+  color: #89918d;
+  font-size: 10px;
+}
+
 .waypoint-dashboard .main-area {
   min-width: 0;
 }

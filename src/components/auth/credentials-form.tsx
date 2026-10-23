@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { demoCredentials } from "../../lib/mock-auth";
 
 export type AuthMode = "login" | "signup";
 
@@ -22,6 +24,7 @@ const inputClassName =
   "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-amber-600 focus:ring-4 focus:ring-amber-600/10 disabled:bg-stone-100 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 dark:placeholder:text-stone-500 dark:disabled:bg-stone-800";
 
 export default function CredentialsForm({ mode }: CredentialsFormProps) {
+  const router = useRouter();
   const isSignup = mode === "signup";
   const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -81,6 +84,11 @@ export default function CredentialsForm({ mode }: CredentialsFormProps) {
               ? "Your account has been created."
               : "You are now signed in.",
       });
+
+      if (!isSignup) {
+        router.replace("/dashboard");
+        router.refresh();
+      }
     } catch {
       setFeedback({
         type: "error",
@@ -106,6 +114,11 @@ export default function CredentialsForm({ mode }: CredentialsFormProps) {
           type="email"
           name="email"
           placeholder="you@example.com"
+          defaultValue={
+            !isSignup && process.env.NODE_ENV !== "production"
+              ? demoCredentials.email
+              : undefined
+          }
           autoComplete="email"
           autoCapitalize="none"
           spellCheck={false}
@@ -128,6 +141,11 @@ export default function CredentialsForm({ mode }: CredentialsFormProps) {
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder={isSignup ? "At least 8 characters" : "Enter your password"}
+            defaultValue={
+              !isSignup && process.env.NODE_ENV !== "production"
+                ? demoCredentials.password
+                : undefined
+            }
             autoComplete={isSignup ? "new-password" : "current-password"}
             minLength={isSignup ? 8 : undefined}
             required

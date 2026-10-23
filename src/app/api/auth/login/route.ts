@@ -1,4 +1,10 @@
 import { NextResponse } from "next/server";
+import {
+  demoCredentials,
+  isMockAuthEnabled,
+  mockSessionCookieName,
+} from "../../../../lib/mock-auth";
+import { mockUser } from "../../../../lib/mock-user";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -36,12 +42,40 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json(
-    {
-      message:
-        "Authentication is not configured yet. Your details were not saved.",
-      success: false,
+  if (!isMockAuthEnabled()) {
+    return NextResponse.json(
+      { message: "Demo login is available in development only." },
+      { status: 501 },
+    );
+  }
+
+  if (
+    body.email.trim().toLowerCase() !== demoCredentials.email ||
+    body.password !== demoCredentials.password
+  ) {
+    return NextResponse.json(
+      { message: "Email or password is incorrect." },
+      { status: 401 },
+    );
+  }
+
+  const response = NextResponse.json({
+    success: true,
+    message: `Welcome back, ${mockUser.firstName}.`,
+    user: {
+      id: mockUser.id,
+      name: mockUser.name,
+      email: mockUser.email,
     },
-    { status: 501 },
-  );
+  });
+
+  response.cookies.set(mockSessionCookieName, mockUser.id, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+    path: "/",
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  return response;
 }

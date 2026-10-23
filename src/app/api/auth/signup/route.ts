@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isMockAuthEnabled } from "../../../../lib/mock-auth";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -41,9 +42,9 @@ export async function POST(request: Request) {
 
   return NextResponse.json(
     {
-      message:
-        "Authentication is not configured yet. Your details were not saved.",
-      success: false,
+      message: isMockAuthEnabled()
+        ? "Account creation is unavailable with the demo account."
+        : "Authentication is not configured yet.",
     },
     { status: 501 },
   );
