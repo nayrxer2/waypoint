@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Icon, type IconName } from "../ui/icon";
+import type { MockUser } from "../../lib/mock-user";
 
 type Project = {
   name: string;
@@ -103,7 +105,8 @@ function ScheduleItem({ time, title, project, color }: { time: string; title: st
   );
 }
 
-export default function Dashboard() {
+export default function Dashboard({ user }: { user: MockUser }) {
+  const router = useRouter();
   const [projects, setProjects] = useState(initialProjects);
   const [tasks, setTasks] = useState(initialTasks);
   const [activeNav, setActiveNav] = useState("Overview");
@@ -159,6 +162,21 @@ export default function Dashboard() {
     setTasks((current) => current.map((task) => task.id === id ? { ...task, done: !task.done } : task));
   }
 
+  async function signOut() {
+    try {
+      const response = await fetch("/api/auth/logout", { method: "POST" });
+      if (!response.ok) {
+        setNotice("We couldn't sign you out. Please try again.");
+        return;
+      }
+
+      router.replace("/");
+      router.refresh();
+    } catch {
+      setNotice("We couldn't reach the server. Please try signing out again.");
+    }
+  }
+
   const completedCount = tasks.filter((task) => task.done).length;
   const today = new Intl.DateTimeFormat("en", { weekday: "long", month: "long", day: "numeric" }).format(new Date());
 
@@ -171,8 +189,8 @@ export default function Dashboard() {
         </Link>
 
         <div className="workspace-switcher">
-          <span className="workspace-avatar">N</span>
-          <span className="workspace-name"><strong>Northstar Studio</strong><small>Free workspace</small></span>
+          <span className="workspace-avatar">{user.workspace.initials}</span>
+          <span className="workspace-name"><strong>{user.workspace.name}</strong><small>{user.workspace.plan}</small></span>
           <span className="switch-chevron"><Icon name="chevron" size={15} /></span>
         </div>
 
@@ -213,10 +231,10 @@ export default function Dashboard() {
             <p>Bring your whole team into the flow.</p>
             <button type="button" onClick={() => setNotice("You’re on the list for Waypoint Pro.")}>Explore Pro <Icon name="arrow" size={14} /></button>
           </div>
-          <button className="profile-button" type="button" onClick={() => setNotice("Profile settings are coming soon.")}>
-            <span className="profile-avatar">SC</span>
-            <span className="profile-name"><strong>Sara Connor</strong><small>Personal account</small></span>
-            <Icon name="dots" size={18} />
+          <button className="profile-button" type="button" onClick={signOut} aria-label={`Sign out ${user.name}`}>
+            <span className="profile-avatar">{user.avatarInitials}</span>
+            <span className="profile-name"><strong>{user.name}</strong><small>{user.title}</small></span>
+            <span className="profile-sign-out">Sign out</span>
           </button>
         </div>
       </aside>
@@ -252,7 +270,7 @@ export default function Dashboard() {
           <section className="welcome-row">
             <div>
               <p className="eyebrow"><span className="eyebrow-dot" /> YOUR STUDIO, IN SYNC</p>
-              <h1>Good morning, Sara <span className="wave">✳</span></h1>
+              <h1>Good morning, {user.firstName} <span className="wave">✳</span></h1>
               <p className="welcome-subtitle">A little progress every day adds up to a lot.</p>
             </div>
             <div className="date-pill"><Icon name="calendar" size={15} /><span>{today}</span></div>

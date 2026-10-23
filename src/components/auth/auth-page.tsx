@@ -80,9 +80,22 @@ export default function AuthForm() {
 
         <CredentialsForm key={mode} mode={mode} />
 
-        <p className="mt-6 text-center text-xs leading-5 text-stone-500 dark:text-stone-400">
-          Authentication is not configured yet. Your details will not be saved.
-        </p>
+        <div className="mt-6 space-y-2 text-center text-xs leading-5 text-stone-500 dark:text-stone-400">
+          {process.env.NODE_ENV !== "production" && !isSignup ? (
+            <p>
+              Demo account: <strong>{`sara@waypoint.demo`}</strong>
+              <br />
+              Password: <strong>waypoint123</strong>
+            </p>
+          ) : (
+            <p>
+              {isSignup
+                ? "Account creation is not available in the demo."
+                : "Demo login is available in development only."}
+            </p>
+          )}
+          <p>Demo account data is temporary and is not stored in a database.</p>
+        </div>
       </section>
     </main>
   );
