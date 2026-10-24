@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import WelcomeGreeting from "../WelcomeGreeting";
 import CredentialsForm, {
   type AuthMode,
 } from "./credentials-form";
@@ -31,9 +32,9 @@ export default function AuthForm() {
         aria-labelledby="auth-heading"
       >
         <div className="mb-8">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-amber-700 dark:text-amber-400">
-            Waypoint
-          </p>
+          <div className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-amber-700 dark:text-amber-400">
+            <WelcomeGreeting />
+          </div>
           <h1
             className="text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100"
             id="auth-heading"
