@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "../features/supportflow/supportflow.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Waypoint — your studio, in sync",
-  description: "A calmer workspace for your projects, tasks, and team.",
+  title: "SupportFlow — Customer support workspace",
+  description: "A thoughtful workspace for customer support teams.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

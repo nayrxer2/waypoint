@@ -2,6 +2,23 @@
 
 This is the human-readable project change log for reviewing implementation decisions and notable updates. Entries are newest first. Add an entry when a meaningful feature, refactor, behavior change, or verification milestone is completed; routine edits do not need individual entries.
 
+## 2026-10-30 — Implement SupportFlow customer-support workspace
+
+### What changed
+
+* Replaced the home and dashboard page content with SupportFlow, a frontend-only customer-support workspace. The demo includes ticket workflows, URL-persisted table state, customer and team views, and analytics.
+* Added typed support-domain models, validation, workflow rules, URL state, analytics calculations, and a local-storage repository under `src/features/supportflow/`. Demo ticket changes persist only in the current browser profile; no backend, database, or authentication provider is connected.
+* Added responsive SupportFlow styling, updated page metadata and README guidance, and set up frontend unit/component and Playwright end-to-end tests.
+
+### Verification
+
+* `npm run typecheck`, `npm test`, `npm run test:e2e`, and `npm run build` — passed. The test suite reported 28 tests across four files; Playwright reported 3 end-to-end tests passed.
+* `npm run lint` — completed with one React Compiler warning at the TanStack Table `useReactTable()` call in `src/features/supportflow/components/supportflow-app.tsx`.
+
+### Known limits and follow-up
+
+* SupportFlow data is demo data stored in browser `localStorage`; it is not shared across users or devices. Replacing the repository with an authenticated API-backed implementation remains future backend work.
+
 ## 2026-10-21 — Add dashboard-local dark mode
 
 ### What changed

@@ -1,20 +1,5 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import Dashboard from "../../components/dashboard/dashboard";
-import {
-  getMockUserForSession,
-  mockSessionCookieName,
-} from "../../lib/mock-auth";
+import SupportFlowApp from "../../features/supportflow/components/supportflow-app";
 
-export default async function DashboardPage() {
-  const cookieStore = await cookies();
-  const user = getMockUserForSession(
-    cookieStore.get(mockSessionCookieName)?.value,
-  );
-
-  if (!user) {
-    redirect("/welcome");
-  }
-
-  return <Dashboard user={user} />;
+export default function DashboardPage() {
+  return <SupportFlowApp />;
 }
