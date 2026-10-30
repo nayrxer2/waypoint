@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SupportFlow
 
-## Getting Started
+SupportFlow is a frontend-only customer-support workspace built with the existing Next.js App Router project. It runs without a database, service credentials, or an authentication provider.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The dashboard is a demo workspace; its teammate names, role labels, customers, and tickets are sample data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local demo data
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The typed support data boundary is in `src/features/supportflow/data/repository.ts`. It loads a realistic seed dataset and stores ticket changes in this browser's `localStorage` under `supportflow-demo-data-v1`. Data is private to the browser profile, is not shared with teammates, and can be reset by clearing that local-storage key. If browser storage is unavailable or malformed, the app displays an error and does not report unsaved changes as successful.
 
-## Learn More
+Domain types, validation, ticket workflow rules, URL state, and analytics calculations are separated under `src/features/supportflow/domain/`. The UI uses those contracts rather than coupling pages to seed-data details. Replacing `supportRepository` with a typed API-backed implementation is the intended future integration point. Backend work should add server-side validation, authentication, authorization, and persistence; the demo role labels are not security controls.
 
-To learn more about Next.js, take a look at the following resources:
+## Metrics
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Open tickets:** tickets in any status except Resolved.
+- **New this week:** tickets created in the trailing seven days, including the current time.
+- **Resolved this week:** tickets resolved in the trailing seven days.
+- **Average resolution:** mean elapsed time from creation to resolution for all resolved tickets with valid timestamps and non-negative durations. It is not limited to this week.
+- **Ticket volume:** tickets created on each of the last seven calendar days.
+- **Status, priority, and workload:** counts derived from the same current ticket list; workload excludes resolved tickets.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Checks
 
-## Deploy on Vercel
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run test:e2e
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Playwright uses its installed browser binaries. If needed, install Chromium with `npx playwright install chromium`.
