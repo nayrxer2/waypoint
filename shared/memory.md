@@ -68,6 +68,8 @@ Organize memory into these sections:
 - Prefer organized Markdown documentation.
 - Use dedicated `skill.md` files for detailed skill instructions.
 - Use concise progress reports with actionable next steps.
+- Follow Conventional Commits; keep messages concise and descriptive.
+- Do not add `Co-authored-by` trailers, AI attribution, or signatures.
 
 ### Tools
 

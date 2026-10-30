@@ -2,6 +2,19 @@
 
 This is the human-readable project change log for reviewing implementation decisions and notable updates. Entries are newest first. Add an entry when a meaningful feature, refactor, behavior change, or verification milestone is completed; routine edits do not need individual entries.
 
+## 2026-10-30 — Consolidate project and skill documentation
+
+### What changed
+
+* Combined the SupportFlow project guide and AI engineering skills-library overview in the root `README.md`; removed the duplicate `.agents/skills/README.md`.
+* Updated the root README with the current skill folder structure, inventory, and links to the skill routing and standards documents.
+* Added a Git Commit Policy to `SKILL_STANDARDS.md`: use concise Conventional Commits and omit co-author trailers and AI attribution.
+
+### Verification
+
+* `git diff --check` — passed.
+* Verified all documented skill and repository-guide paths against the workspace.
+
 ## 2026-10-30 — Implement SupportFlow customer-support workspace
 
 ### What changed
