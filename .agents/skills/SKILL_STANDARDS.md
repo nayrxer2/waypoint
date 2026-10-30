@@ -1,151 +1,398 @@
-Engineering Skill Standards
+Skill Standards
+
+Mandatory standards for creating, maintaining, reviewing, and activating engineering skills.
+
+All skills in this library must follow this document.
+
 1. Purpose
 
-Every skill must provide focused, actionable engineering guidance for one primary responsibility.
+A skill is a specialized engineering instruction document that helps an AI agent perform a defined responsibility correctly.
 
-A skill is not a general-purpose instruction dump.
+A skill must provide:
 
-It must help an agent make better technical decisions and produce reliable results.
+Clear ownership.
+Specific activation conditions.
+Explicit boundaries.
+Actionable engineering rules.
+Decision-making guidance.
+Verification requirements.
+Defined completion criteria.
 
-2. Required frontmatter
+A skill must not become a general-purpose collection of unrelated engineering advice.
 
-Every skill must define:
+2. One Skill, One Primary Responsibility
 
-name: Unique, descriptive identifier.
-description: What the skill does and when it should activate.
+Every skill must have one primary responsibility.
 
-Place workspace skills at `.agents/skills/<name>/SKILL.md` for native discovery.
-The directory name and `name` value must match. Use valid YAML frontmatter;
-never combine multiple keys on one line.
+Examples:
 
-Example:
+Skill	Owns
+React Component Engineering	Component composition and design
+React Hooks Engineering	Hook behavior and effect correctness
+React State Management	State ownership and architecture
+Next.js App Router	Next.js-specific framework behavior
+TypeScript Engineering	Type modeling and safety
+Backend Engineering	Business logic and persistence
+Security Engineering	Security controls
+Frontend Testing	Frontend test strategy and implementation
+
+Related responsibilities may be referenced, but must not be unnecessarily duplicated.
+
+Prohibited
+Combining all React knowledge into one enormous skill.
+Combining frontend and backend engineering into one skill.
+Repeating entire Next.js instructions in React skills.
+Repeating dependency approval rules in every skill.
+Mixing repository-specific conventions with universal engineering rules.
+3. Required Skill Metadata
+
+Every skill must begin with:
 
 yaml
 ---
-name: nextjs-app-router
-description: >
-  Build, debug, refactor, and review Next.js App Router applications.
-  Use when implementing Next.js routes, components, rendering,
-  data fetching, or framework-specific behavior.
+name: unique-skill-name
+description: Clear description of responsibilities and when to use this skill.
 ---
 
-3. Required sections
 
-Every skill must contain:
+Requirements:
 
-Mission
-Scope and ownership
-When to use
-When not to use
-Prerequisites and inspection
-Core engineering principles
-Implementation or execution rules
-Integration with other skills
-Conflict resolution
-Stop conditions
-Verification requirements
-Definition of done
-Relevant documentation
+Names must be unique.
+Names should describe the responsibility.
+Descriptions must explain both purpose and activation conditions.
+Descriptions must be concise and specific.
+Do not use vague descriptions such as "helps with software development."
 
-Sections may be combined when that improves clarity, but none of these responsibilities should be omitted.
+The metadata should be compatible with the target agent framework's discovery requirements.
 
-4. Activation rules
+4. Required Skill Structure
 
-Every skill must explicitly define:
+Use this structure where relevant:
 
-When to use
+markdown
+# Skill Name
 
-Specific tasks and conditions that justify activation.
+## Mission
 
-When not to use
+## 1. Scope and Ownership
 
-Tasks outside its ownership, irrelevant technologies, and situations where activation adds unnecessary complexity.
+## 2. Activation Criteria
 
-Required skills
+## 3. When Not to Use
 
-Other skills that must be consulted for specific cross-domain responsibilities.
+## 4. Core Engineering Principles
 
-Optional skills
+## 5. Required Workflow
 
-Other skills that may improve the result when justified.
+## 6. Decision Rules
 
-5. Ownership boundaries
+## 7. Anti-Patterns
+
+## 8. Verification
+
+## 9. Definition of Done
+
+## Final Instruction
+
+
+Not every skill needs every heading.
+
+Do not add sections merely to satisfy a template.
+
+A concise, complete skill is better than an unnecessarily long one.
+
+5. Scope and Ownership
 
 Each skill must define:
 
 What it owns.
 What it does not own.
-Which responsibilities belong to other skills.
-How cross-domain tasks should be coordinated.
+Which related skills should be consulted.
+Where responsibility transfers to another engineering discipline.
 
-Never duplicate complete technical standards across multiple skills.
+Examples:
 
-Reference the owning skill instead.
+React Hooks Engineering owns Hook implementation and effect correctness.
 
-6. Engineering quality requirements
+React State Management owns state classification, ownership, and architecture.
 
-Skills must:
+Next.js App Router owns Next.js framework integration.
 
-Prefer evidence over assumptions.
-Inspect actual project versions and conventions.
-Use official documentation for version-sensitive APIs.
-Preserve existing functionality.
-Avoid unnecessary dependencies.
-Avoid speculative abstractions.
-Identify security and reliability implications.
-Require appropriate verification.
-Distinguish confirmed facts from assumptions.
-7. Decision-making standards
+Backend Engineering owns backend business logic and persistence.
 
-A skill must challenge decisions when:
+Security Engineering owns security controls.
 
-The implementation adds unnecessary complexity.
-The proposed abstraction has no demonstrated value.
-A solution violates architectural boundaries.
-A security assumption is unsupported.
-The requested approach creates avoidable technical debt.
-A simpler solution achieves the same outcome more reliably.
+Avoid ambiguous ownership.
 
-Do not automatically agree with the user's proposed implementation.
+6. Activation Criteria
 
-Explain the technical problem and recommend a better approach.
+Every skill must define when it applies.
 
-8. Stop conditions
+Activation must be based on the actual task, not just keyword matching.
 
-Define when implementation must stop because of:
+Use three levels:
 
-Missing authorization.
-Destructive or irreversible consequences.
-Unresolved architectural decisions.
-Undefined external contracts.
-Security violations.
-Missing required information.
+MUST USE
 
-Continue independent authorized work when possible.
+The task directly requires the skill's primary responsibility.
 
-9. Verification and reporting
+USE WHEN RELEVANT
 
-Never claim that code was tested, a build succeeded, a package was installed, or documentation was inspected unless it actually happened.
+The task involves a meaningful concern owned by the skill.
 
-Report:
+DO NOT USE
 
-Work completed.
-Checks executed.
-Results.
-Known limitations.
-Remaining dependencies.
-10. Avoid skill bloat
+The task does not involve the skill's responsibility, or using it would add unnecessary complexity.
 
-Do not create a new skill for every small technique.
+Examples:
 
-Create a separate skill only when the responsibility has:
+Changing a React component's composition: React Component Engineering.
+Creating a custom Hook: React Hooks Engineering.
+Choosing between Context and a store: React State Management.
+Changing Next.js caching behavior: Next.js App Router.
+Creating a database transaction: Backend Engineering.
+Auditing access control: Security Engineering.
+Changing Waypoint dashboard styles: Waypoint Design System Governance.
+7. Decision Rules
 
-A meaningful independent scope.
-Distinct activation conditions.
-Reusable engineering guidance.
-A clear ownership boundary.
-Final principle
+Skills must provide actionable decision rules.
 
-A good skill makes correct engineering decisions easier and incorrect decisions harder.
+Prefer:
 
-Optimize for precision, applicability, maintainability, and measurable engineering quality.
+"If multiple components need the same state, identify their common owner before selecting Context or an external store."
+
+Avoid:
+
+"Use good state management."
+
+Prefer:
+
+"Use an effect to synchronize with an external system. Calculate derived values during rendering instead."
+
+Avoid:
+
+"Use effects correctly."
+
+Rules must help the agent choose between alternatives.
+
+8. Engineering Workflow
+
+When applicable, skills should guide the agent through:
+
+Inspect.
+Understand.
+Plan.
+Implement.
+Verify.
+Review.
+Report.
+
+The workflow must be proportional to the task.
+
+A small bug fix should not require an enterprise architecture review.
+
+A security-sensitive mutation deserves deeper inspection and verification.
+
+9. Technical Accuracy
+
+All technical guidance must:
+
+Respect installed framework versions.
+Avoid invented APIs.
+Distinguish framework guarantees from recommendations.
+Prefer official documentation for version-sensitive behavior.
+Avoid outdated defaults.
+Identify assumptions.
+Avoid presenting preferences as universal rules.
+
+When technical behavior is uncertain, inspect the project or consult authoritative documentation.
+
+10. Anti-Patterns
+
+Every skill should identify relevant mistakes.
+
+Examples:
+
+React Component Engineering
+God components.
+Premature abstraction.
+Excessive prop forwarding.
+Unnecessary memoization.
+React Hooks Engineering
+Conditional Hook calls.
+Effects for derived state.
+Missing dependencies.
+Stale closures.
+React State Management
+Global state for local interactions.
+Duplicated server state.
+Redundant derived state.
+Unnecessary state libraries.
+Next.js App Router
+Unnecessary Client Components.
+Incorrect caching assumptions.
+Client-only authorization.
+Duplicated business logic.
+Backend Engineering
+Business logic inside transport handlers.
+Unsafe database writes.
+Missing transactions.
+Unbounded queries.
+Security Engineering
+Trusting client-side permissions.
+Exposing secrets.
+Missing server-side authorization.
+Unsafe input handling.
+
+Do not list unrelated anti-patterns simply to increase document length.
+
+11. Skill Boundaries and Cross-Skill References
+
+When a task crosses responsibilities:
+
+Keep ownership explicit.
+Consult the appropriate additional skill.
+Do not duplicate another skill's entire instruction set.
+Follow the more specialized skill for its owned responsibility.
+Resolve overlapping concerns using the routing policy.
+
+Examples:
+
+A Next.js mutation may require Next.js App Router, Backend Engineering, and Security Engineering.
+
+A React form may require React Component Engineering, React Hooks Engineering, and Frontend Accessibility.
+
+A dashboard styling task may require Frontend Design Engineering and Waypoint Design System Governance.
+
+12. Repository-Specific Skills
+
+Repository-specific skills must:
+
+Identify their repository scope.
+Never present local conventions as universal rules.
+Verify actual implementation before relying on documented paths.
+Preserve repository-specific architecture.
+Identify documentation drift.
+Avoid affecting unrelated repositories.
+
+Waypoint-specific rules must only apply when working on Waypoint.
+
+13. Dependency Rules
+
+Skills must respect Dependency Governance.
+
+Do not:
+
+Introduce unnecessary packages.
+Replace existing dependencies without justification.
+Assume a popular library is automatically better.
+Install packages without required approval.
+Claim installation or testing occurred when it did not.
+
+Use existing project capabilities first.
+
+14. Verification Requirements
+
+Skills must distinguish between:
+
+Code inspection.
+Static analysis.
+Type checking.
+Unit testing.
+Integration testing.
+End-to-end testing.
+Build verification.
+Browser verification.
+Visual comparison.
+
+Do not treat one type of verification as proof of all others.
+
+Report what actually ran and what remains unverified.
+
+15. Writing Quality
+
+All skills must be:
+
+Specific.
+Direct.
+Technically accurate.
+Actionable.
+Consistent.
+Free from unnecessary repetition.
+
+Avoid:
+
+Generic motivational language.
+Repeated mission statements.
+Excessive warnings.
+Contradictory instructions.
+Unnecessary examples.
+Unsupported absolute claims.
+Repeating README content.
+
+Use tables when they improve decision clarity.
+
+Use code examples when they demonstrate an important implementation pattern.
+
+16. Conflict Resolution
+
+When instructions overlap, apply this priority:
+
+Platform and system safety requirements.
+Explicit user requirements and permissions.
+Applicable repository-specific constraints.
+Specialized skill instructions for their owned responsibility.
+General engineering skill guidance.
+General engineering preferences.
+
+This priority does not permit a repository-specific rule to override security requirements or explicit user authorization.
+
+When two applicable instructions genuinely conflict:
+
+Identify the conflict.
+Determine which instruction owns the decision.
+Preserve security and correctness.
+Avoid silently choosing a behavior-changing interpretation.
+Ask for clarification only when the unresolved decision materially affects the implementation.
+17. Skill Maintenance
+
+Before adding a skill:
+
+Search the existing inventory.
+Identify overlapping responsibilities.
+Determine whether an existing skill can be improved instead.
+Define distinct ownership.
+Define activation and exclusion criteria.
+Write the skill.
+Update SKILL_ROUTING.md.
+Update README.md.
+Review related skills for contradictions.
+
+Before modifying a skill:
+
+Preserve valid existing guidance.
+Remove obsolete or duplicated instructions.
+Verify technical claims.
+Check references and file paths.
+Update dependent routing rules.
+18. Skill Quality Review
+
+A skill is acceptable only if the following questions can be answered positively:
+
+Is its responsibility clear?
+Is its scope explicit?
+Are activation conditions specific?
+Does it define when not to use it?
+Are decision rules actionable?
+Are technical claims accurate?
+Does it avoid duplicating other skills?
+Are cross-skill boundaries clear?
+Does it include meaningful verification?
+Is its complexity justified?
+Final Standard
+
+A good skill should improve engineering decisions, not merely increase the number of instructions an AI agent follows.
+
+Every instruction must serve a clear purpose.
+
+If a rule does not improve correctness, security, maintainability, clarity, or verification, reconsider whether it belongs in the skill.
