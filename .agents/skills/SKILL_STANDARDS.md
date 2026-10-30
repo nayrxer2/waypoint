@@ -379,7 +379,14 @@ Before modifying a skill:
 - Check references and file paths.
 - Update dependent routing rules.
 
-## 18. Skill Quality Review
+## 18. Git Commit Policy
+
+- Follow Conventional Commits.
+- Do not add `Co-authored-by` trailers.
+- Do not add AI agent attribution or signatures.
+- Keep commit messages concise and descriptive.
+
+## 19. Skill Quality Review
 
 A skill is acceptable only if the following questions can be answered positively:
 - Is its responsibility clear?
